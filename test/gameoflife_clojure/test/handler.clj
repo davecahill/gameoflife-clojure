@@ -8,6 +8,11 @@
     (let [response (app (mock/request :get "/"))]
       (is (= (:status response) 200))
       (is (= (:body response) "Hello World"))))
+
+  (testing "info route"
+    (let [response (app (mock/request :get "/info/"))]
+      (is (= (:status response) 200))
+      (is (= (:body response) "INFOOO"))))
   
   (testing "not-found route"
     (let [response (app (mock/request :get "/invalid"))]
