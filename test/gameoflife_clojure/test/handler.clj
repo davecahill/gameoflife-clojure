@@ -1,7 +1,8 @@
 (ns gameoflife-clojure.test.handler
   (:require [clojure.test :refer :all]
             [gameoflife-clojure.handler :refer :all]
-            [ring.mock.request :as mock]))
+            [ring.mock.request :as mock]
+            [cheshire.core :refer :all]))
 
 (deftest test-app
   (testing "main route"
@@ -12,7 +13,7 @@
   (testing "info route"
     (let [response (app (mock/request :get "/info/"))]
       (is (= (:status response) 200))
-      (is (= (:body response) "INFOOO"))))
+      (is (= (:Author (parse-string (:body response) true)) "Dave Cahill"))))
   
   (testing "not-found route"
     (let [response (app (mock/request :get "/invalid"))]
